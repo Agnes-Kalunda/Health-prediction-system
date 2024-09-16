@@ -1,34 +1,39 @@
+# serializers.py
 from rest_framework import serializers
-from .models import KidneyPrediction
 
 class KidneyPredictionSerializer(serializers.Serializer):
-    age = serializers.FloatField()
-    bp = serializers.FloatField()
-    sg = serializers.FloatField()
-    al = serializers.FloatField()
-    su = serializers.FloatField()
-    rbc = serializers.CharField(max_length=10)
-    pc = serializers.CharField(max_length=10)
-    pcc = serializers.CharField(max_length=10)
-    ba = serializers.CharField(max_length=10)
-    bgr = serializers.FloatField()
-    bu = serializers.FloatField()
-    sc = serializers.FloatField()
-    sod = serializers.FloatField()
-    pot = serializers.FloatField()
-    hemo = serializers.FloatField()
-    pcv = serializers.FloatField()
-    wc = serializers.FloatField()
-    rc = serializers.FloatField()
-    htn = serializers.CharField(max_length=10)
-    dm = serializers.CharField(max_length=10)
-    cad = serializers.CharField(max_length=10)
-    appet = serializers.CharField(max_length=10)
-    pe = serializers.CharField(max_length=10)
-    ane = serializers.CharField(max_length=10)
+    age = serializers.FloatField(required=True)
+    bp = serializers.FloatField(required=True)
+    sg = serializers.FloatField(required=True)
+    al = serializers.FloatField(required=True)
+    su = serializers.FloatField(required=True)
+    rbc = serializers.CharField(required=True)
+    pc = serializers.CharField(required=True)
+    pcc = serializers.CharField(required=True)
+    ba = serializers.CharField(required=True)
+    bgr = serializers.FloatField(required=True)
+    bu = serializers.FloatField(required=True)
+    sc = serializers.FloatField(required=True)
+    sod = serializers.FloatField(required=True)
+    pot = serializers.FloatField(required=True)
+    hemo = serializers.FloatField(required=True)
+    pcv = serializers.FloatField(required=True)
+    wc = serializers.FloatField(required=True)
+    rc = serializers.FloatField(required=True)
+    htn = serializers.CharField(required=True)
+    dm = serializers.CharField(required=True)
+    cad = serializers.CharField(required=True)
+    appet = serializers.CharField(required=True)
+    pe = serializers.CharField(required=True)
+    ane = serializers.CharField(required=True)
 
-    prediction_result = serializers.CharField(read_only=True)
-    prediction_probability = serializers.FloatField(read_only=True)
-
-    def create(self, validated_data):
-        return KidneyPrediction.objects.create(**validated_data)
+    def validate(self, data):
+        for field in ['age', 'bp', 'sg', 'al', 'su', 'bgr', 'bu', 'sc', 'sod', 'pot', 'hemo', 'pcv', 'wc', 'rc']:
+            if data.get(field) is None:
+                raise serializers.ValidationError({field: f'{field} cannot be null'})
+        
+        for field in ['rbc', 'pc', 'pcc', 'ba', 'htn', 'dm', 'cad', 'appet', 'pe', 'ane']:
+            if not data.get(field):
+                raise serializers.ValidationError({field: f'{field} cannot be empty'})
+        
+        return data
