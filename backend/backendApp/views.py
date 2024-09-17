@@ -1,14 +1,14 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from .models import KidneyPrediction
-from .serializers import KidneyPredictionSerializer
+from .models import KidneyPrediction  # Assuming you have a model
+from .serializers import KidneyPredictionSerializer, PredictionResponseSerializer
 import joblib
 import numpy as np
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 
 class KidneyPredictionViewSet(viewsets.ModelViewSet):
-    queryset = KidneyPrediction.objects.all()
+    queryset = KidneyPrediction.objects.all()  # Assuming you have a model
     serializer_class = KidneyPredictionSerializer
 
     @action(detail=False, methods=['post'])
@@ -19,7 +19,7 @@ class KidneyPredictionViewSet(viewsets.ModelViewSet):
             model = joblib.load('backend/backendApp/notebooks/kidney.pkl')
             scaler = joblib.load('backend/backendApp/notebooks/kidney_scaler.pkl')
 
-            # input data
+            # Input data
             feature_order = ['age', 'bp', 'sg', 'al', 'su', 'rbc', 'pc', 'pcc', 'ba', 'bgr', 'bu', 'sc', 'sod', 'pot', 'hemo', 'pcv', 'wc', 'rc', 'htn', 'dm', 'cad', 'appet', 'pe', 'ane']
             input_data = np.array([serializer.validated_data[feature] for feature in feature_order]).reshape(1, -1)
 
@@ -36,17 +36,12 @@ class KidneyPredictionViewSet(viewsets.ModelViewSet):
             prediction = model.predict(input_data_scaled)[0]
             probability = model.predict_proba(input_data_scaled)[0][1]
 
+            prediction_response_serializer = PredictionResponseSerializer({
+                'prediction_result': 'Kidney Disease' if prediction else 'No Kidney Disease',
+                'prediction_probability': probability,
+                # Add other data for the response serializer if needed
+            })
 
-            instance = serializer.save(
-                prediction=bool(prediction),
-                prediction_result='Kidney Disease' if prediction else 'No Kidney Disease',
-                prediction_probability=probability
-            )
-
-            return Response({
-                'prediction_result': instance.prediction_result,
-                'prediction_probability': instance.prediction_probability,
-                **serializer.data
-            }, status=status.HTTP_201_CREATED)
+            return Response(prediction_response_serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

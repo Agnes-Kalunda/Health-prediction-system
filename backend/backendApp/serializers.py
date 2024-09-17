@@ -1,4 +1,3 @@
-# serializers.py
 from rest_framework import serializers
 
 class KidneyPredictionSerializer(serializers.Serializer):
@@ -37,3 +36,8 @@ class KidneyPredictionSerializer(serializers.Serializer):
                 raise serializers.ValidationError({field: f'{field} cannot be empty'})
         
         return data
+
+class PredictionResponseSerializer(serializers.Serializer):
+    prediction_result = serializers.CharField()
+    prediction_probability = serializers.FloatField()
+    # Add other relevant fields from the main serializer if needed
