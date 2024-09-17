@@ -5,7 +5,11 @@ from .models import KidneyPrediction
 from .serializers import KidneyPredictionSerializer, PredictionResponseSerializer
 import joblib
 import numpy as np
-from sklearn.preprocessing import LabelEncoder, StandardScaler
+import os
+from django.conf import settings
+import logging
+
+logger = logging.getLogger(__name__)
 
 class KidneyPredictionViewSet(viewsets.ModelViewSet):
     queryset = KidneyPrediction.objects.all()
@@ -13,49 +17,63 @@ class KidneyPredictionViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['post'])
     def predict(self, request):
+        logger.info(f"Received prediction request with data: {request.data}")
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
-            # Load the model and scaler
-            model = joblib.load('backend/backendApp/notebooks/kidneyy.pkl')
-            scaler = joblib.load('backend/backendApp/notebooks/kidneyy_scaler.pkl')
+            try:
+                # Load the model and scaler
+                model_path = os.path.join(settings.BASE_DIR, 'backendApp', 'notebooks', 'kidneyy.pkl')
+                scaler_path = os.path.join(settings.BASE_DIR, 'backendApp', 'notebooks', 'kidneyy_scaler.pkl')
+                model = joblib.load(model_path)
+                scaler = joblib.load(scaler_path)
 
-            # Define feature order
-            feature_order = ['age', 'bp', 'sg', 'al', 'su', 'rbc', 'pc', 'pcc', 'ba', 'bgr', 'bu', 'sc', 'sod', 'pot', 'hemo', 'pcv', 'wc', 'rc', 'htn', 'dm', 'cad', 'appet', 'pe', 'ane']
+                
 
-            # Create input data array
-            input_data = np.array([serializer.validated_data[feature] for feature in feature_order]).reshape(1, -1)
+                # Define feature order (24 input features, excluding 'classification')
+                feature_order = ['age', 'bp', 'sg', 'al', 'su', 'rbc', 'pc', 'pcc', 'ba', 
+                                 'bgr', 'bu', 'sc', 'sod', 'pot', 'hemo', 'pcv', 'wc', 
+                                 'rc', 'htn', 'dm', 'cad', 'appet', 'pe', 'ane']
 
-            # Load predefined label encoders
-            categorical_cols = ['rbc', 'pc', 'pcc', 'ba', 'htn', 'dm', 'cad', 'appet', 'pe', 'ane']
-            label_encoders = {col: joblib.load(f'backend/backendApp/notebooks/{col}_label_encoder.pkl') for col in categorical_cols}
+                # Create input data array
+                input_data = np.array([serializer.validated_data[feature] for feature in feature_order]).reshape(1, -1)
 
-            # Encode categorical variables
-            for col in categorical_cols:
-                col_index = feature_order.index(col)
-                input_data[0, col_index] = label_encoders[col].transform([input_data[0, col_index]])[0]
+                # Debugging: Log the shape and contents of input_data
+                logger.info(f"Input data shape: {input_data.shape}")
+                logger.info(f"Input data: {input_data}")
 
-            # Scale the input data
-            input_data_scaled = scaler.transform(input_data)
+                # Ensure input_data has exactly 24 features
+                if input_data.shape[1] != 24:
+                    raise ValueError(f"Input data must have exactly 24 features. Found {input_data.shape[1]} features.")
 
-            # Make prediction
-            prediction = model.predict(input_data_scaled)[0]
-            probability = model.predict_proba(input_data_scaled)[0][1]
+                # Scale the input data
+                input_data_scaled = scaler.transform(input_data)
 
-            # Create and save KidneyPrediction instance
-            kidney_prediction = KidneyPrediction.objects.create(
-                **serializer.validated_data,
-                prediction=prediction,
-                prediction_result='Kidney Disease' if prediction else 'No Kidney Disease',
-                prediction_probability=probability
-            )
+                # Make prediction
+                prediction = model.predict(input_data_scaled)[0]
+                probability = model.predict_proba(input_data_scaled)[0][1]
 
-            # Prepare response
-            prediction_response_serializer = PredictionResponseSerializer({
-                'prediction_result': kidney_prediction.prediction_result,
-                'prediction_probability': kidney_prediction.prediction_probability,
-                'message': f"Based on the input values, the prediction is: {kidney_prediction.prediction_result} with a probability of {kidney_prediction.prediction_probability:.2f}"
-            })
+                # Create and save KidneyPrediction instance
+                kidney_prediction = KidneyPrediction.objects.create(
+                    **serializer.validated_data,
+                    prediction=prediction,
+                    prediction_result='Kidney Disease' if prediction else 'No Kidney Disease',
+                    prediction_probability=probability
+                )
 
-            return Response(prediction_response_serializer.data, status=status.HTTP_201_CREATED)
+                # Prepare response
+                prediction_response_serializer = PredictionResponseSerializer({
+                    'prediction_result': kidney_prediction.prediction_result,
+                    'prediction_probability': kidney_prediction.prediction_probability,
+                    'message': f"Based on the input values, the prediction is: {kidney_prediction.prediction_result} with a probability of {kidney_prediction.prediction_probability:.2f}"
+                })
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                logger.info(f"Prediction made: {prediction_response_serializer.data}")
+                return Response(prediction_response_serializer.data, status=status.HTTP_201_CREATED)
+
+            except Exception as e:
+                logger.error(f"Error during prediction: {str(e)}")
+                return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        else:
+            logger.error(f"Invalid input data: {serializer.errors}")
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
