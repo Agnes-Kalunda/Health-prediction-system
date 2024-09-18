@@ -1,5 +1,6 @@
+# serializers.py
 from rest_framework import serializers
-from .models import KidneyPrediction
+from .models import KidneyPrediction  # Ensure you have a HeartDisease model if needed
 
 class KidneyPredictionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,6 +20,28 @@ class KidneyPredictionSerializer(serializers.ModelSerializer):
             if not data.get(field):
                 raise serializers.ValidationError({field: f'{field} cannot be empty'})
         
+        return data
+
+class HeartDiseaseSerializer(serializers.Serializer):
+    age = serializers.IntegerField()
+    sex = serializers.IntegerField()
+    cp = serializers.IntegerField()
+    trestbps = serializers.IntegerField()
+    chol = serializers.IntegerField()
+    fbs = serializers.IntegerField()
+    restecg = serializers.IntegerField()
+    thalach = serializers.IntegerField()
+    exang = serializers.IntegerField()
+    oldpeak = serializers.FloatField()
+    slope = serializers.IntegerField()
+    ca = serializers.IntegerField()
+    thal = serializers.IntegerField()
+
+    def validate(self, data):
+        # Example validation for the Heart Disease Serializer
+        for field in ['age', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang', 'oldpeak', 'slope', 'ca', 'thal']:
+            if data.get(field) is None:
+                raise serializers.ValidationError({field: f'{field} cannot be null'})
         return data
 
 class PredictionResponseSerializer(serializers.Serializer):

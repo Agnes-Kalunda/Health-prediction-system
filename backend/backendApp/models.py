@@ -31,3 +31,24 @@ class KidneyPrediction(models.Model):
 
     def __str__(self):
         return f"Prediction for patient {self.id}"
+    
+
+
+class HeartDiseasePrediction(models.Model):
+    age = models.IntegerField()
+    sex = models.IntegerField()
+    cp = models.IntegerField()
+    trestbps = models.IntegerField()
+    chol = models.IntegerField()
+    fbs = models.IntegerField()
+    restecg = models.IntegerField()
+    thalach = models.IntegerField()
+    exang = models.IntegerField()
+    oldpeak = models.FloatField()
+    slope = models.IntegerField()
+    ca = models.IntegerField()
+    thal = models.IntegerField()
+    prediction = models.IntegerField()
+
+    def __str__(self):
+        return f"Prediction: {self.prediction} for Age: {self.age}"
