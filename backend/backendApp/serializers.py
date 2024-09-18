@@ -38,7 +38,6 @@ class HeartDiseaseSerializer(serializers.Serializer):
     thal = serializers.IntegerField()
 
     def validate(self, data):
-        # Example validation for the Heart Disease Serializer
         for field in ['age', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang', 'oldpeak', 'slope', 'ca', 'thal']:
             if data.get(field) is None:
                 raise serializers.ValidationError({field: f'{field} cannot be null'})
