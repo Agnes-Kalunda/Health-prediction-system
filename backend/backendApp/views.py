@@ -2,7 +2,7 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from .models import KidneyPrediction  # Adjust this import based on your actual model names
+from .models import *
 from .serializers import KidneyPredictionSerializer, PredictionResponseSerializer, HeartDiseaseSerializer
 import joblib
 import numpy as np
