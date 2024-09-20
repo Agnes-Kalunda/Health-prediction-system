@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const HeartPrediction = () => {
   const [formData, setFormData] = useState({
@@ -17,43 +18,52 @@ const HeartPrediction = () => {
     thal: "",
   });
 
+  const [prediction, setPrediction] = useState(null);
+  const [error, setError] = useState(null);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
+    try {
+      const response = await axios.post("/heart-disease/predict/", formData);
+      setPrediction(response.data);
+      setError(null);
+    } catch (err) {
+      setError("An error occurred while making the prediction.");
+      console.error(err);
+    }
   };
 
   return (
     <div className="p-6 max-w-md mx-auto bg-white rounded-xl shadow-md space-y-4">
       <h2 className="text-2xl font-bold mb-4">Heart Disease Prediction</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Input fields */}
         <div>
-          <label className="block text-sm font-medium text-gray-700">Age</label>
+          <label className="block text-sm font-medium text-gray-700">Age (age)</label>
           <input
-            type="number"
+            type="text"
             name="age"
             value={formData.age}
             onChange={handleChange}
-            placeholder="Enter age"
+            placeholder="Enter Age"
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
           />
         </div>
-
         <div>
-          <label className="block text-sm font-medium text-gray-700">Sex</label>
+          <label className="block text-sm font-medium text-gray-700">Sex (sex)</label>
           <input
             type="text"
             name="sex"
             value={formData.sex}
             onChange={handleChange}
-            placeholder="Enter sex"
+            placeholder="Enter Sex"
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
           />
         </div>
-
         <div>
           <label className="block text-sm font-medium text-gray-700">Chest Pain Type (cp)</label>
           <input
@@ -61,71 +71,65 @@ const HeartPrediction = () => {
             name="cp"
             value={formData.cp}
             onChange={handleChange}
-            placeholder="Enter chest pain type"
+            placeholder="Enter Chest Pain Type"
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
           />
         </div>
-
         <div>
           <label className="block text-sm font-medium text-gray-700">Resting Blood Pressure (trestbps)</label>
           <input
-            type="number"
+            type="text"
             name="trestbps"
             value={formData.trestbps}
             onChange={handleChange}
-            placeholder="Enter resting blood pressure"
+            placeholder="Enter Resting Blood Pressure"
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
           />
         </div>
-
         <div>
           <label className="block text-sm font-medium text-gray-700">Cholesterol (chol)</label>
           <input
-            type="number"
+            type="text"
             name="chol"
             value={formData.chol}
             onChange={handleChange}
-            placeholder="Enter cholesterol"
+            placeholder="Enter Cholesterol"
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
           />
         </div>
-
         <div>
           <label className="block text-sm font-medium text-gray-700">Fasting Blood Sugar (fbs)</label>
           <input
-            type="number"
+            type="text"
             name="fbs"
             value={formData.fbs}
             onChange={handleChange}
-            placeholder="Enter fasting blood sugar"
+            placeholder="Enter Fasting Blood Sugar"
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
           />
         </div>
-
         <div>
-          <label className="block text-sm font-medium text-gray-700">Resting ECG (restecg)</label>
+          <label className="block text-sm font-medium text-gray-700">Resting Electrocardiographic Results (restecg)</label>
           <input
             type="text"
             name="restecg"
             value={formData.restecg}
             onChange={handleChange}
-            placeholder="Enter resting ECG results"
+            placeholder="Enter Resting Electrocardiographic Results"
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
           />
         </div>
-
         <div>
-          <label className="block text-sm font-medium text-gray-700">Max Heart Rate (thalach)</label>
+          <label className="block text-sm font-medium text-gray-700">Maximum Heart Rate Achieved (thalach)</label>
           <input
-            type="number"
+            type="text"
             name="thalach"
             value={formData.thalach}
             onChange={handleChange}
-            placeholder="Enter max heart rate"
+            placeholder="Enter Maximum Heart Rate Achieved"
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
           />
         </div>
-
         <div>
           <label className="block text-sm font-medium text-gray-700">Exercise Induced Angina (exang)</label>
           <input
@@ -133,47 +137,43 @@ const HeartPrediction = () => {
             name="exang"
             value={formData.exang}
             onChange={handleChange}
-            placeholder="Enter exercise-induced angina"
+            placeholder="Enter Exercise Induced Angina"
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
           />
         </div>
-
         <div>
-          <label className="block text-sm font-medium text-gray-700">Oldpeak</label>
+          <label className="block text-sm font-medium text-gray-700">Oldpeak (oldpeak)</label>
           <input
-            type="number"
+            type="text"
             name="oldpeak"
             value={formData.oldpeak}
             onChange={handleChange}
-            placeholder="Enter oldpeak"
+            placeholder="Enter Oldpeak"
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
           />
         </div>
-
         <div>
-          <label className="block text-sm font-medium text-gray-700">Slope</label>
+          <label className="block text-sm font-medium text-gray-700">Slope (slope)</label>
           <input
             type="text"
             name="slope"
             value={formData.slope}
             onChange={handleChange}
-            placeholder="Enter slope"
+            placeholder="Enter Slope"
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
           />
         </div>
-
         <div>
-          <label className="block text-sm font-medium text-gray-700">Number of Major Vessels (ca)</label>
+          <label className="block text-sm font-medium text-gray-700">Number of Major Vessels Colored by Fluoroscopy (ca)</label>
           <input
-            type="number"
+            type="text"
             name="ca"
             value={formData.ca}
             onChange={handleChange}
-            placeholder="Enter number of major vessels"
+            placeholder="Enter Number of Major Vessels Colored by Fluoroscopy"
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
           />
         </div>
-
         <div>
           <label className="block text-sm font-medium text-gray-700">Thalassemia (thal)</label>
           <input
@@ -181,7 +181,7 @@ const HeartPrediction = () => {
             name="thal"
             value={formData.thal}
             onChange={handleChange}
-            placeholder="Enter thalassemia information"
+            placeholder="Enter Thalassemia"
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
           />
         </div>
@@ -193,6 +193,24 @@ const HeartPrediction = () => {
           Submit
         </button>
       </form>
+
+      {/* Display prediction result */}
+      {prediction && (
+        <div className="mt-4 p-4 bg-green-100 text-green-800 rounded">
+          <h3 className="font-bold">Prediction Result:</h3>
+          <p>{prediction.message}</p>
+          <p>
+            <strong>Probability:</strong> {prediction.prediction_probability}
+          </p>
+        </div>
+      )}
+
+      {/* Display error */}
+      {error && (
+        <div className="mt-4 p-4 bg-red-100 text-red-800 rounded">
+          <p>{error}</p>
+        </div>
+      )}
     </div>
   );
 };
