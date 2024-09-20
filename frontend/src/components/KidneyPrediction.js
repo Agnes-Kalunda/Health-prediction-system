@@ -19,7 +19,7 @@ const KidneyPrediction = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
+    
   };
 
   return (
@@ -39,7 +39,7 @@ const KidneyPrediction = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Blood Pressure</label>
+          <label className="block text-sm font-medium text-gray-700">Blood Pressure (bp)</label>
           <input
             type="number"
             name="bloodPressure"
@@ -51,7 +51,7 @@ const KidneyPrediction = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Specific Gravity</label>
+          <label className="block text-sm font-medium text-gray-700">Specific Gravity (sg)</label>
           <input
             type="number"
             name="specificGravity"
@@ -63,7 +63,7 @@ const KidneyPrediction = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Albumin</label>
+          <label className="block text-sm font-medium text-gray-700">Albumin (al)</label>
           <input
             type="number"
             name="albumin"
@@ -75,7 +75,7 @@ const KidneyPrediction = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Sugar</label>
+          <label className="block text-sm font-medium text-gray-700">Sugar (su)</label>
           <input
             type="number"
             name="sugar"
@@ -87,7 +87,7 @@ const KidneyPrediction = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Red Blood Cells</label>
+          <label className="block text-sm font-medium text-gray-700">Red Blood Cells (rbc)</label>
           <input
             type="text"
             name="redBloodCells"
@@ -99,7 +99,7 @@ const KidneyPrediction = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Pus Cell</label>
+          <label className="block text-sm font-medium text-gray-700">Pus Cell (pc)</label>
           <input
             type="text"
             name="pusCell"
@@ -111,7 +111,7 @@ const KidneyPrediction = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Pus Cell Clumps</label>
+          <label className="block text-sm font-medium text-gray-700">Pus Cell Clumps (pcc)</label>
           <input
             type="text"
             name="pusCellClumps"
@@ -123,7 +123,7 @@ const KidneyPrediction = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Bacteria</label>
+          <label className="block text-sm font-medium text-gray-700">Bacteria (ba)</label>
           <input
             type="text"
             name="bacteria"
@@ -134,6 +134,184 @@ const KidneyPrediction = () => {
           />
         </div>
 
+        <div>
+          <label className="block text-sm font-medium text-gray-700"> (bgr)</label>
+          <input
+            type="text"
+            name="bacteria"
+            value={formData.bacteria}
+            onChange={handleChange}
+            placeholder="Enter bacteria count"
+            className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700">(bu)</label>
+          <input
+            type="text"
+            name="bacteria"
+            value={formData.bacteria}
+            onChange={handleChange}
+            placeholder="Enter bacteria count"
+            className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">(sc)</label>
+          <input
+            type="text"
+            name="bacteria"
+            value={formData.bacteria}
+            onChange={handleChange}
+            placeholder="Enter bacteria count"
+            className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700">(sod)</label>
+          <input
+            type="text"
+            name="bacteria"
+            value={formData.bacteria}
+            onChange={handleChange}
+            placeholder="Enter bacteria count"
+            className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700">(pot)</label>
+          <input
+            type="text"
+            name="bacteria"
+            value={formData.bacteria}
+            onChange={handleChange}
+            placeholder="Enter bacteria count"
+            className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700">(hemo)</label>
+          <input
+            type="text"
+            name="bacteria"
+            value={formData.bacteria}
+            onChange={handleChange}
+            placeholder="Enter bacteria count"
+            className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700">(pcv)</label>
+          <input
+            type="text"
+            name="bacteria"
+            value={formData.bacteria}
+            onChange={handleChange}
+            placeholder="Enter bacteria count"
+            className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700">(wc)</label>
+          <input
+            type="text"
+            name="bacteria"
+            value={formData.bacteria}
+            onChange={handleChange}
+            placeholder="Enter bacteria count"
+            className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700">(rc)</label>
+          <input
+            type="text"
+            name="bacteria"
+            value={formData.bacteria}
+            onChange={handleChange}
+            placeholder="Enter bacteria count"
+            className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700">(htn)</label>
+          <input
+            type="text"
+            name="bacteria"
+            value={formData.bacteria}
+            onChange={handleChange}
+            placeholder="Enter bacteria count"
+            className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700">(dm)</label>
+          <input
+            type="text"
+            name="bacteria"
+            value={formData.bacteria}
+            onChange={handleChange}
+            placeholder="Enter bacteria count"
+            className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700">(cad)</label>
+          <input
+            type="text"
+            name="bacteria"
+            value={formData.bacteria}
+            onChange={handleChange}
+            placeholder="Enter bacteria count"
+            className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700">(appet)</label>
+          <input
+            type="text"
+            name="bacteria"
+            value={formData.bacteria}
+            onChange={handleChange}
+            placeholder="Enter bacteria count"
+            className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700">(pe)</label>
+          <input
+            type="text"
+            name="bacteria"
+            value={formData.bacteria}
+            onChange={handleChange}
+            placeholder="Enter bacteria count"
+            className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700">(ane)</label>
+          <input
+            type="text"
+            name="bacteria"
+            value={formData.bacteria}
+            onChange={handleChange}
+            placeholder="Enter bacteria count"
+            className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+          />
+        </div>
         <button
           type="submit"
           className="w-full bg-green-500 text-white font-bold py-2 px-4 rounded"
