@@ -60,7 +60,7 @@ const HeartPrediction = () => {
             name="sex"
             value={formData.sex}
             onChange={handleChange}
-            placeholder="Enter Sex"
+            placeholder="0 for female,1 for male"
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
           />
         </div>
@@ -71,7 +71,7 @@ const HeartPrediction = () => {
             name="cp"
             value={formData.cp}
             onChange={handleChange}
-            placeholder="Enter Chest Pain Type"
+            placeholder="Enter between 0-3"
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
           />
         </div>
@@ -104,7 +104,7 @@ const HeartPrediction = () => {
             name="fbs"
             value={formData.fbs}
             onChange={handleChange}
-            placeholder="Enter Fasting Blood Sugar"
+            placeholder="Fasting Blood Sugar"
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
           />
         </div>
