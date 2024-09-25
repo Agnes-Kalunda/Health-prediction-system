@@ -115,7 +115,7 @@ const KidneyPrediction = () => {
             name="rbc"
             value={formData.rbc}
             onChange={handleChange}
-            placeholder="Enter Red Blood Cells"
+            placeholder="0 for normal, 1 abnormal"
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
           />
         </div>
@@ -126,7 +126,7 @@ const KidneyPrediction = () => {
             name="pc"
             value={formData.pc}
             onChange={handleChange}
-            placeholder="Enter Pus Cell"
+            placeholder="0 for normal, 1 abnormal"
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
           />
         </div>
@@ -137,7 +137,7 @@ const KidneyPrediction = () => {
             name="pcc"
             value={formData.pcc}
             onChange={handleChange}
-            placeholder="Enter Pus Cell Clump"
+            placeholder="0 for normal, 1 abnormal"
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
           />
         </div>
@@ -148,7 +148,7 @@ const KidneyPrediction = () => {
             name="ba"
             value={formData.ba}
             onChange={handleChange}
-            placeholder="Enter Bacteria"
+            placeholder="0 for normal, 1 abnormal"
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
           />
         </div>
@@ -258,7 +258,7 @@ const KidneyPrediction = () => {
             name="htn"
             value={formData.htn}
             onChange={handleChange}
-            placeholder="Enter Hypertension"
+            placeholder="0 for normal, 1 abnormal"
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
           />
         </div>
@@ -269,7 +269,7 @@ const KidneyPrediction = () => {
             name="dm"
             value={formData.dm}
             onChange={handleChange}
-            placeholder="Enter Diabetes Mellitus"
+            placeholder="0 for normal, 1 abnormal"
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
           />
         </div>
@@ -280,7 +280,7 @@ const KidneyPrediction = () => {
             name="cad"
             value={formData.cad}
             onChange={handleChange}
-            placeholder="Enter Coronary Artery Disease"
+            placeholder="0 for normal, 1 abnormal"
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
           />
         </div>
@@ -291,7 +291,7 @@ const KidneyPrediction = () => {
             name="appet"
             value={formData.appet}
             onChange={handleChange}
-            placeholder="Enter Appetite"
+            placeholder="0 for normal, 1 abnormal"
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
           />
         </div>
@@ -302,7 +302,7 @@ const KidneyPrediction = () => {
             name="pe"
             value={formData.pe}
             onChange={handleChange}
-            placeholder="Enter Pedal Edema"
+            placeholder="0 for normal, 1 abnormal"
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
           />
         </div>
@@ -313,7 +313,7 @@ const KidneyPrediction = () => {
             name="ane"
             value={formData.ane}
             onChange={handleChange}
-            placeholder="Enter Anemia"
+            placeholder="0 for normal, 1 abnormal"
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
           />
         </div>
