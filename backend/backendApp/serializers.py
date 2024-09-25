@@ -1,6 +1,6 @@
 # serializers.py
 from rest_framework import serializers
-from .models import KidneyPrediction  # Ensure you have a HeartDisease model if needed
+from .models import KidneyPrediction 
 
 class KidneyPredictionSerializer(serializers.ModelSerializer):
     class Meta:
