@@ -117,7 +117,7 @@ class HeartDiseasePredictionViewSet(viewsets.ViewSet):
                 prediction_response_serializer = PredictionResponseSerializer({
                     'prediction_result': 'Heart Disease' if prediction else 'No Heart Disease',
                     'prediction_probability': probability,
-                    'message': f"Based on the input values, the prediction is: {'Heart Disease' if prediction else 'No Heart Disease'} with a probability of {probability:.2f}"
+                    'message': f"Based on the input values, the prediction is: {'Heart Disease Detected' if prediction else 'No Heart Disease Detected'} "
                 })
 
                 logger.info(f"Prediction made: {prediction_response_serializer.data}")
