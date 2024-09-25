@@ -28,7 +28,7 @@ const HeartPrediction = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/heart-disease/predict/", formData);
+      const response = await axios.post("http://localhost:8000/heart-disease-predictions/predict/", formData);
       setPrediction(response.data);
       setError(null);
     } catch (err) {

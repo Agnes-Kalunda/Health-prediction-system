@@ -39,7 +39,7 @@ const KidneyPrediction = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/kidney-disease/predict/", formData);
+      const response = await axios.post("http://localhost:8000/kidney-predictions/predict/", formData);
       setPrediction(response.data);
       setError(null);
     } catch (err) {
